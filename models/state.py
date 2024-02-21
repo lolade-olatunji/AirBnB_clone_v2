@@ -6,6 +6,8 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+from models.city import City
+import shlex
 
 
 class State(BaseModel, Base):
@@ -14,7 +16,7 @@ class State(BaseModel, Base):
         __tablename__ = 'states'
         name = Column(String(128),
                       nullable=False)
-        cities = relationship("City", cascade="all, delete",
+        cities = relationship("City", cascade="all, delete, delete-orphan",
                               backref="states")
     else:
         name = ""
